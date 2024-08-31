@@ -4,20 +4,22 @@
 
 ### Inicialización del Proyecto
 Se creó la estructura básica del proyecto y se inicializó un proyecto de Node.js utilizando Node.js versión 18.
-```bash
+
 
 mkdir devops-practice
 cd devops-practice
 npm init -y
 
-# Intalación de Dependencias
+# Instalación de Dependencias
 Instalación de Express para la API y Jest para realizar pruebas.
 npm install express jest
-#Estructura del Proyecto
+
+# Estructura del Proyecto
 Creación de directorios para el código fuente y pruebas unitarias.
 mkdir src tests
 touch src/app.js tests/app.test.js
-#Implementación de la API REST
+
+# Implementación de la API REST
 Se implementó una API REST básica en src/app.js.
 
 const express = require('express');
@@ -34,7 +36,7 @@ app.listen(port, () => {
 
 module.exports = app;
 
-#Pruebas Unitarias
+# Pruebas Unitarias
 Se escribieron pruebas para la API utilizando Jest y Supertest en tests/app.test.js.
 
 const request = require('supertest');
@@ -49,9 +51,9 @@ describe('GET /', () => {
 });
 
 
-#Integración y Entrega Continua
+# Integración y Entrega Continua
 Se configuró un pipeline CI/CD usando GitHub Actions y Docker para automatizar las pruebas y el despliegue.
-##CI con GitHub Actions
+## CI con GitHub Actions
 Configuración de .github/workflows/ci.yml.
 
 name: CI Pipeline
@@ -76,9 +78,9 @@ jobs:
       - name: Run tests
         run: npm test
 
-##CD con Docker
+## CD con Docker
 Dockerización de la aplicación y configuración para el despliegue.
-##Docker
+## Docker
 FROM node:18
 WORKDIR /app
 COPY package*.json ./
@@ -88,7 +90,7 @@ EXPOSE 3000
 CMD ["node", "src/app.js"]
 
 
-##Docker Compose
+## Docker Compose
 
 Automatización del entorno usando docker-compose.yml.
 version: '3.8'
@@ -100,12 +102,12 @@ services:
     environment:
       - NODE_ENV=production
 
-###Despliegue Local
+### Despliegue Local
 Pruebas del despliegue local utilizando Docker.
 
 docker-compose up --build -d
 
-####Verificación
+#### Verificación
 Se verificó el funcionamiento de la aplicación accediendo a http://localhost:3000.
 
 
