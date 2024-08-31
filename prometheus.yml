@@ -1,0 +1,14 @@
+# Intervalo global para realizar el scraping de métricas (cada 15 segundos)
+global:
+  scrape_interval: 15s
+
+# Configuración de los trabajos para scraping
+scrape_configs:
+  # Nombre del trabajo para identificarlo en las métricas
+  - job_name: 'node-app'
+    
+    # Configuración de los targets para este trabajo
+    static_configs:
+      # Lista de endpoints que Prometheus debe consultar para recolectar métricas
+      - targets: ['app:3000']
+
