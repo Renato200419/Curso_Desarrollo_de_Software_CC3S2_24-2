@@ -116,7 +116,8 @@ Se verificó el funcionamiento de la aplicación accediendo a http://localhost:3
 ### Resultado
 ![Terminal Output](Imagenes/Foto10.png)
 
-
+# NOTA: Esta actividad 1 se realizó el día 28 de agosto, si sale la fecha como 1 de setiembre se debe a que se organizó la carpeta tal fecha:
+![Terminal Output](Imagenes/Foto11.png)
 
 
 
