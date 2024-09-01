@@ -5,7 +5,8 @@
 ### Inicialización del Proyecto
 Se creó la estructura básica del proyecto y se inicializó un proyecto de Node.js utilizando Node.js versión 18.
 
-![Terminal Output](/Imagenes/Foto1.png)
+![Descripción de la imagen](Imagenes/Foto1.png)
+
 
 #### Código
 mkdir devops-practice
@@ -18,11 +19,13 @@ Instalación de Express para la API y Jest para realizar pruebas.
 npm install express jest
 
 Se presentó un problema, y se tuvo  que instalar la versión 18 de Node,js para poder seguir con los pasos
-![Terminal Output](/Imagenes/Foto2.png)
+![Descripción de la imagen](Imagenes/Foto2.png)
+
 
 Una vez arreglado el problema:
 
-![Terminal Output](/Imagenes/Foto3.png)
+![Descripción de la imagen](Imagenes/Foto3.png)
+
 
 # Estructura del Proyecto
 Creación de directorios para el código fuente y pruebas unitarias.
@@ -31,11 +34,13 @@ mkdir src tests
 touch src/app.js tests/app.test.js
 
 ### Verificación de la creación de los archivos
-![Terminal Output](/Imagenes/Foto4.png)
+![Descripción de la imagen](Imagenes/Foto4.png)
+
 
 # Implementación de la API REST
 Se implementó una API REST básica en src/app.js.
-![Terminal Output](/Imagenes/Foto5.png)
+![Descripción de la imagen](Imagenes/Foto5.png)
+
 
 ### Código
 const express = require('express');
@@ -54,7 +59,8 @@ module.exports = app;
 
 # Pruebas Unitarias
 Se escribieron pruebas para la API utilizando Jest y Supertest en tests/app.test.js.
-![Terminal Output](/Imagenes/Foto6.png)
+![Descripción de la imagen](Imagenes/Foto6.png)
+
 ### Código
 const request = require('supertest');
 const app = require('../src/app');
@@ -68,17 +74,20 @@ describe('GET /', () => {
 });
 
 # Se configura el script de test en package.json:
-![Terminal Output](/Imagenes/Foto7.png)
+![Descripción de la imagen](Imagenes/Foto7.png)
+
 # Integración y Entrega Continua
 Se configuró un pipeline CI/CD usando GitHub Actions y Docker para automatizar las pruebas y el despliegue.
 ## CI con GitHub Actions
 Configuración de .github/workflows/ci.yml.
-![Terminal Output](/Imagenes/Foto8.png)
+![Descripción de la imagen](Imagenes/Foto8.png)
+
 
 
 ## CD con Docker
 Dockerización de la aplicación y configuración para el despliegue.
-![Terminal Output](/Imagenes/Foto9.png)
+![Descripción de la imagen](Imagenes/Foto9.png)
+
 
 
 ## Docker Compose
@@ -105,7 +114,7 @@ Se verificó el funcionamiento de la aplicación accediendo a http://localhost:3
 
 
 ### Resultado
-![Terminal Output](/Imagenes/Foto10.png)
+![Terminal Output](Imagenes/Foto10.png)
 
 
 
