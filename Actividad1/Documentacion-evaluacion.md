@@ -3,7 +3,7 @@
 ## Configuración del Entorno y Desarrollo
 
 ### Inicialización del Proyecto
-Se creó la estructura básica del proyecto y se inicializó un proyecto de Node.js utilizando Node.js versión 18.
+Se creó la estructura básica del proyecto y se inicializó un proyecto de Node.js utilizando Node.js versión 18 para evitar problemas.
 
 ![Descripción de la imagen](Imagenes/Foto1.png)
 
