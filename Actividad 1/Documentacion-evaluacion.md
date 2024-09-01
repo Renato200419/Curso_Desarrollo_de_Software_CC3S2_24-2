@@ -5,23 +5,39 @@
 ### Inicialización del Proyecto
 Se creó la estructura básica del proyecto y se inicializó un proyecto de Node.js utilizando Node.js versión 18.
 
+![Terminal Output](/Imagenes/Foto1.png)
 
+#### Código
 mkdir devops-practice
 cd devops-practice
 npm init -y
 
 # Instalación de Dependencias
 Instalación de Express para la API y Jest para realizar pruebas.
+### Código
 npm install express jest
+
+Se presentó un problema, y se tuvo  que instalar la versión 18 de Node,js para poder seguir con los pasos
+![Terminal Output](/Imagenes/Foto2.png)
+
+Una vez arreglado el problema:
+
+![Terminal Output](/Imagenes/Foto3.png)
 
 # Estructura del Proyecto
 Creación de directorios para el código fuente y pruebas unitarias.
+
 mkdir src tests
 touch src/app.js tests/app.test.js
 
+### Verificación de la creación de los archivos
+![Terminal Output](/Imagenes/Foto4.png)
+
 # Implementación de la API REST
 Se implementó una API REST básica en src/app.js.
+![Terminal Output](/Imagenes/Foto5.png)
 
+### Código
 const express = require('express');
 const app = express();
 
@@ -38,7 +54,8 @@ module.exports = app;
 
 # Pruebas Unitarias
 Se escribieron pruebas para la API utilizando Jest y Supertest en tests/app.test.js.
-
+![Terminal Output](/Imagenes/Foto6.png)
+### Código
 const request = require('supertest');
 const app = require('../src/app');
 
@@ -50,44 +67,18 @@ describe('GET /', () => {
     });
 });
 
-
+# Se configura el script de test en package.json:
+![Terminal Output](/Imagenes/Foto7.png)
 # Integración y Entrega Continua
 Se configuró un pipeline CI/CD usando GitHub Actions y Docker para automatizar las pruebas y el despliegue.
 ## CI con GitHub Actions
 Configuración de .github/workflows/ci.yml.
+![Terminal Output](/Imagenes/Foto8.png)
 
-name: CI Pipeline
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-      - name: Install dependencies
-        run: npm install
-      - name: Run tests
-        run: npm test
 
 ## CD con Docker
 Dockerización de la aplicación y configuración para el despliegue.
-## Docker
-FROM node:18
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["node", "src/app.js"]
+![Terminal Output](/Imagenes/Foto9.png)
 
 
 ## Docker Compose
@@ -107,8 +98,14 @@ Pruebas del despliegue local utilizando Docker.
 
 docker-compose up --build -d
 
+
+
 #### Verificación
 Se verificó el funcionamiento de la aplicación accediendo a http://localhost:3000.
+
+
+### Resultado
+![Terminal Output](/Imagenes/Foto10.png)
 
 
 
