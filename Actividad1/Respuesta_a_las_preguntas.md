@@ -1,4 +1,4 @@
-Parte 1)
+Parte 1 )
 
 • ¿Qué es DevOps?
 Como tal la palabra DevOps, se puede separar en Dev que quiere decir "desarrollo" y Ops que es "operaciones". DevOps es una práctica que integra el desarrollo de software y las operaciones de TI para mejorar la colaboración, la automatización y la eficiencia en la entrega de aplicaciones. O dicho de otra manera como en la Lectura 1, DevOps es la unión de personas, procesos y herramientas para proporcionar continuamente valor a los usuarios finales y es, fundamentalmente, un cambio cultural.
@@ -18,7 +18,7 @@ Los equipos de desarrollo se enfocaban en agregar nuevas características, mient
 • Qué NO es DevOps.
 DevOps no se trata únicamente de herramientas, individuos específicos o procesos aislados; en realidad representa un cambio cultural y un enfoque diseñado para eliminar la fricción entre los silos dentro de una organización. Implica un cambio en la mentalidad, los hábitos y la cultura.
 
-Parte 2)
+Parte 2 )
 • Pregunta 1: ¿Por qué surgió la necesidad de DevOps en el desarrollo de software?
 Surgió debido a la falta de comunicación y coordinación entre los equipos de desarrollo y operaciones, lo que generaba ineficiencias, retrasos en los lanzamientos y productos de baja calidad. Ya que todos estos problemas se presentaron en el pasado y no se podía trabajar de una manera organizada.
 
