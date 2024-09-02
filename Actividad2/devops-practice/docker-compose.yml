@@ -1,0 +1,10 @@
+version: '3.8'  # Versión del archivo de configuración de Docker Compose
+
+services:
+  # Servicio para la aplicación Node.js
+  app:
+    build: .  # Construye la imagen Docker usando el Dockerfile en el directorio actual
+    ports:
+      - "3000:3000"  # Mapea el puerto 3000 del contenedor al puerto 3000 del host
+    environment:
+      - NODE_ENV=production  # Configura la variable de entorno NODE_ENV en el contenedor
