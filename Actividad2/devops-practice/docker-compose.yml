@@ -1,10 +1,21 @@
-version: '3.8'  # Versión del archivo de configuración de Docker Compose
+version: '3.8'  # Especifica la versión del archivo de configuración de Docker Compose
 
-services:
-  # Servicio para la aplicación Node.js
-  app:
-    build: .  # Construye la imagen Docker usando el Dockerfile en el directorio actual
+services:  # Define los servicios que se van a ejecutar
+  app:  # Servicio para la aplicación principal
+    build: .  # Construye la imagen Docker desde el Dockerfile en el directorio actual
     ports:
       - "3000:3000"  # Mapea el puerto 3000 del contenedor al puerto 3000 del host
     environment:
-      - NODE_ENV=production  # Configura la variable de entorno NODE_ENV en el contenedor
+      - NODE_ENV=production  # Establece la variable de entorno NODE_ENV a 'production'
+
+  prometheus:  # Servicio para Prometheus, un sistema de monitoreo
+    image: prom/prometheus  # Usa la imagen oficial de Prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Mapea el archivo de configuración de Prometheus al contenedor
+    ports:
+      - "9090:9090"  # Mapea el puerto 9090 del contenedor al puerto 9090 del host
+
+  grafana:  # Servicio para Grafana, una herramienta de visualización de datos
+    image: grafana/grafana  # Usa la imagen oficial de Grafana
+    ports:
+      - "3001:3001"  # Mapea el puerto 3001 del contenedor al puerto 3001 del host
