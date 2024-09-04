@@ -5,7 +5,7 @@
 ### Inicialización del Proyecto
 Se creó la estructura básica del proyecto y se inicializó un proyecto de Node.js utilizando Node.js versión 18 para evitar problemas.
 
-![Descripción de la imagen](Imagenes/Foto1.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto1.png)
 
 
 #### Código
@@ -19,12 +19,15 @@ Instalación de Express para la API y Jest para realizar pruebas.
 npm install express jest
 
 Se presentó un problema, y se tuvo  que instalar la versión 18 de Node,js para poder seguir con los pasos
-![Descripción de la imagen](Imagenes/Foto2.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto2.png)
 
+## Actulización para jest
+![Descripción de la imagen](devops-practice/Imagenes/Foto12.png)
 
 Una vez arreglado el problema:
 
-![Descripción de la imagen](Imagenes/Foto3.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto3.png)
+
 
 
 # Estructura del Proyecto
@@ -34,12 +37,14 @@ mkdir src tests
 touch src/app.js tests/app.test.js
 
 ### Verificación de la creación de los archivos
-![Descripción de la imagen](Imagenes/Foto4.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto4.png)
+
 
 
 # Implementación de la API REST
 Se implementó una API REST básica en src/app.js.
-![Descripción de la imagen](Imagenes/Foto5.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto5.png)
+
 
 
 ### Código
@@ -59,7 +64,8 @@ module.exports = app;
 
 # Pruebas Unitarias
 Se escribieron pruebas para la API utilizando Jest y Supertest en tests/app.test.js.
-![Descripción de la imagen](Imagenes/Foto6.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto6.png)
+
 
 ### Código
 const request = require('supertest');
@@ -74,19 +80,22 @@ describe('GET /', () => {
 });
 
 # Se configura el script de test en package.json:
-![Descripción de la imagen](Imagenes/Foto7.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto7.png)
+
 
 # Integración y Entrega Continua
 Se configuró un pipeline CI/CD usando GitHub Actions y Docker para automatizar las pruebas y el despliegue.
 ## CI con GitHub Actions
 Configuración de .github/workflows/ci.yml.
-![Descripción de la imagen](Imagenes/Foto8.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto8.png)
+
 
 
 
 ## CD con Docker
 Dockerización de la aplicación y configuración para el despliegue.
-![Descripción de la imagen](Imagenes/Foto9.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto9.png)
+
 
 
 
@@ -114,10 +123,12 @@ Se verificó el funcionamiento de la aplicación accediendo a http://localhost:3
 
 
 ### Resultado
-![Terminal Output](Imagenes/Foto10.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto10.png)
+
 
 # NOTA: Esta actividad 1 se realizó el día 28 de agosto, si sale la fecha como 1 de setiembre se debe a que se organizó la carpeta tal fecha:
-![Terminal Output](Imagenes/Foto11.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto11.png)
+
 
 
 
