@@ -129,6 +129,8 @@ Se verificó el funcionamiento de la aplicación accediendo a http://localhost:3
 # NOTA: Esta actividad 1 se realizó el día 28 de agosto, si sale la fecha como 1 de setiembre se debe a que se organizó la carpeta tal fecha:
 ![Descripción de la imagen](devops-practice/Imagenes/Foto11.png)
 
+## También se hizo un testeo para ver el resultado
+![Descripción de la imagen](devops-practice/Imagenes/Foto13.png)
 
 
 
