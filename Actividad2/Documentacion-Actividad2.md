@@ -91,6 +91,7 @@ npm audit
 - **`docker compose --build -d`**: Construye las imágenes de los servicios definidos en el archivo **`docker-compose.yml`** y las ejecuta en segundo plano.
 - **`docker exec devops-practice-app-1 npm test`**: Ejecuta el comando **`npm test`** en el contenedor con nombre **`devops-practice-app-1`**.
 
+![Descripción de la imagen](devops-practice/Imagenes/Foto21.png)
 
 # Implementación de observabilidad y aclaración
 ## Configuración del Pipeline de CI/CD
