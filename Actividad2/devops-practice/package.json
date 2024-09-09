@@ -4,8 +4,8 @@
   "scripts": {
     "test": "jest"
   },
-  "dependencies": {
-    "express": "4.16.0"
+  "dependencies": { 
+   "express": "^4.19.2"
   },
   "devDependencies": {
     "jest": "^27.5.1",
