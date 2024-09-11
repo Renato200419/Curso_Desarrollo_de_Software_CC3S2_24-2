@@ -156,3 +156,137 @@ En resumen, estas herramientas y prácticas refuerzan nuestro entorno DevOps al 
 
 1. **Ejercicio 1**
 
+## Implementación
+
+En este caso implementamos nuestro `devops-practice` ya que es un pipeline de CI/CD, el cual incluye pruebas de seguridad automatizadas mediante GitHub Actions. Además, tal como se vio en la Actividad2 usamos la herramienta de análisis de seguridad `npm audit` para evaluar las vulnerabilidades en nuestras dependencias.
+
+### Este es nuestro ci.yml
+``` ci.yml
+
+#Actividad 1
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./Actividad1/devops-practice
+
+    - name: Run tests
+      run: npm test
+      working-directory: ./Actividad1/devops-practice
+
+    - name: Build Docker image
+      run: docker build -t devops-practice .
+      working-directory: ./Actividad1/devops-practice
+
+    - name: Run Docker container
+      run: docker run -d -p 3000:3000 devops-practice
+      working-directory: ./Actividad1/devops-practice
+
+# Actividad 2
+
+#name: CI/CD Pipeline
+
+#on:
+#  push:
+#    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
+
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+
+#    steps:
+#    - name: Checkout code
+#      uses: actions/checkout@v2
+
+#    - name: Set up Node.js
+#      uses: actions/setup-node@v2
+#      with:
+#       node-version: '18'
+
+#    - name: Install dependencies
+#      run: npm install
+#      working-directory: ./Actividad2/devops-practice
+
+#    - name: Run tests
+#      run: npm test
+#      working-directory: ./Actividad2/devops-practice
+
+#    - name: Run security audit
+#      run: npm audit
+#      working-directory: ./Actividad2/devops-practice
+```
+
+1. Primero, introducimos una vulnerabilidad intencional: Se modifica el `package.json` para incluir una dependencia obsoleta que se sabe que tiene vulnerabilidades.
+
+``` json
+
+  "name": "devops-practice",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "4.16.0" // Suponiendo que esta versión tiene vulnerabilidades conocidas
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "supertest": "^6.3.4"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+
+```
+![Descripción de la imagen](devops-practice/Imagenes/Foto22.png)
+
+2. Segundo, todo este cambio lo subimos a nuestro repositorio haciendo git y push para que nuestro GithubActions se active. Pero para eso necesitamos descomentar el código de la Actividad2, y comentar el código de la Actividad1 para que funcione lo que hemos hecho.
+
+![Descripción de la imagen](devops-practice/Imagenes/Foto23.png)
+
+3. Tercero, revisamos en nuestro repositorio en la parte de `Actions`, vemos todas las acciones que hemos realizado. 
+![Descripción de la imagen](devops-practice/Imagenes/Foto24.png)
+
+4. Cuarto, revisamos los detalles del proceso que hizo nuestro GithubActions:
+
+![Descripción de la imagen](devops-practice/Imagenes/Foto25.png)
+
+
+## Evaluación 
+
+1. **Impacto de detectar la vulnerabilidad en una fase temprana del desarrollo:**
+- **Reducción de Riesgos:** Detectar una vulnerabilidad en etapas tempranas minimiza el riesgo de comprometer la seguridad del sistema una vez en producción. Esto protege tanto a la empresa como a sus usuarios de posibles brechas de seguridad.
+- **Costo y Esfuerzo:** Corregir una vulnerabilidad durante el desarrollo es mucho menos costoso y menos laborioso que hacerlo una vez que el producto está en el mercado. Las correcciones en producción pueden requerir despliegues de emergencia y parches rápidos que son disruptivos y costosos.
+- **Consecuencias de qué hubiera pasado si la vulnerabilidad llegaba a producción:** Si una vulnerabilidad crítica llega a producción, podría resultar en la pérdida de datos sensibles, ataques de seguridad, y un daño considerable a la reputación de la empresa. Además, esto podría llevar a interrupciones del servicio mientras se trabaja en solucionar la vulnerabilidad, generando pérdidas financieras adicionales.
+
+2. **Integración de DevSecOps para prevenir problemas de seguridad y reducir costos:**
+
+- **Incorporación de Seguridad en el Ciclo de Vida:** DevSecOps integra prácticas de seguridad desde el inicio del desarrollo del software. Esto ayuda a identificar y mitigar vulnerabilidades de manera proactiva y a fomentar una cultura de seguridad continua entre los equipos de desarrollo.
+- **Automatización de Procesos de Seguridad:** La automatización de pruebas de seguridad y revisiones de configuración ahorra tiempo y asegura que se mantengan estándares de seguridad consistentes. Esto no solo mejora la eficiencia operativa sino que también contribuye a reducir los costos asociados con las pruebas de seguridad manuales y los errores humanos.
+- **Beneficios a Largo Plazo:** Adoptar un enfoque de DevSecOps puede resultar en un ahorro significativo de costos a largo plazo, reduciendo la necesidad de intervenciones costosas en etapas posteriores del desarrollo y durante la fase de producción, y manteniendo una postura de seguridad robusta en todo momento.
