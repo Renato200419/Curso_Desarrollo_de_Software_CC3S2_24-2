@@ -15,17 +15,7 @@ if (require.main === module) {
     // Obtiene el puerto desde la variable de entorno PORT o usa 3000 por defecto
     const port = process.env.PORT || 3000;
 
-    // Agrega lógica para mostrar mensajes diferentes en desarrollo y producción
-    const isDevelopment = process.env.NODE_ENV === 'development';
-    const isDebugMode = process.env.DEBUG === 'true';
-
-    if (isDevelopment && isDebugMode) {
-        console.log('Debugging is enabled');
-    } else {
-        console.log('Running in production mode');
-    }
-
-    // Inicia el servidor en el puerto especificado y muestra un mensaje en la consola
+    Inicia el servidor en el puerto especificado y muestra un mensaje en la consola
     const server = app.listen(port, () => console.log(`Server running on port ${port}`));
 
     // Exporta el servidor para que pueda ser usado en pruebas o en otros módulos
