@@ -15,7 +15,7 @@ if (require.main === module) {
     // Obtiene el puerto desde la variable de entorno PORT o usa 3000 por defecto
     const port = process.env.PORT || 3000;
 
-    Inicia el servidor en el puerto especificado y muestra un mensaje en la consola
+    // Inicia el servidor en el puerto especificado y muestra un mensaje en la consola
     const server = app.listen(port, () => console.log(`Server running on port ${port}`));
 
     // Exporta el servidor para que pueda ser usado en pruebas o en otros módulos
