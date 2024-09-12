@@ -154,7 +154,7 @@ En resumen, estas herramientas y prácticas refuerzan nuestro entorno DevOps al 
 
 # Ejercicios Adicionales - Parte Práctica
 
-1. **Ejercicio 1**
+# **Ejercicio 1**
 
 ## Implementación
 
@@ -290,3 +290,105 @@ jobs:
 - **Incorporación de Seguridad en el Ciclo de Vida:** DevSecOps integra prácticas de seguridad desde el inicio del desarrollo del software. Esto ayuda a identificar y mitigar vulnerabilidades de manera proactiva y a fomentar una cultura de seguridad continua entre los equipos de desarrollo.
 - **Automatización de Procesos de Seguridad:** La automatización de pruebas de seguridad y revisiones de configuración ahorra tiempo y asegura que se mantengan estándares de seguridad consistentes. Esto no solo mejora la eficiencia operativa sino que también contribuye a reducir los costos asociados con las pruebas de seguridad manuales y los errores humanos.
 - **Beneficios a Largo Plazo:** Adoptar un enfoque de DevSecOps puede resultar en un ahorro significativo de costos a largo plazo, reduciendo la necesidad de intervenciones costosas en etapas posteriores del desarrollo y durante la fase de producción, y manteniendo una postura de seguridad robusta en todo momento.
+
+
+# **Ejercicio 2**
+
+1. **Implementación**
+
+- Para poder resolver la parte prática del Ejercicio2 usaremos nuestra carpeta `devops-practice` el cual contiene a los archivos Docker y Docker Compose:
+
+```Dockerfile
+# Usa la imagen oficial de Node.js
+FROM node:18
+
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# Copia los archivos package.json y package-lock.json
+COPY package*.json ./
+
+# Instala las dependencias
+RUN npm install
+
+# Copia el resto de los archivos de la aplicación
+COPY . .
+
+# Expone el puerto en el que la aplicación correrá
+EXPOSE 3000
+
+# Comando para iniciar la aplicación
+CMD ["node", "src/app.js"]
+```
+
+
+
+```Docker-Compose
+
+version: '3.8'  # Especifica la versión del archivo de configuración de Docker Compose
+services:  # Define los servicios que se van a ejecutar
+  app:  # Servicio para la aplicación principal
+    build: .  # Construye la imagen Docker desde el Dockerfile en el directorio actual
+    ports:
+      - "3000:3000"  # Mapea el puerto 3000 del contenedor al puerto 3000 del host
+    environment:
+      - NODE_ENV=production  # Establece la variable de entorno NODE_ENV a 'production'
+
+  prometheus:  # Servicio para Prometheus, un sistema de monitoreo
+    image: prom/prometheus  # Usa la imagen oficial de Prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Mapea el archivo de configuración de Prometheus al contenedor    ports:
+      - "9090:9090"  # Mapea el puerto 9090 del contenedor al puerto 9090 del host
+
+  grafana:  # Servicio para Grafana, una herramienta de visualización de datos
+    image: grafana/grafana  # Usa la imagen oficial de Grafana
+    ports:
+      - "3001:3000"  # Mapea el puerto 3001 del host al puerto 3000 de Grafana dentro del contenedor
+
+``` 
+
+- Configuramos nuestro Docker-compose para usar variables de entorno de desarrollo y producción
+  - Se modifica la variable de entorno `NODE ENV`:
+    - Development: `NODE_ENV=development` y `DEBUG=true`. Esto activa las funciones de depuración y puede producir logs más verbosos, lo cual es útil durante el desarrollo para rastrear errores y comprender el comportamiento de la aplicación.
+    - Production: `NODE_ENV=production. Esto optimiza la aplicación para el rendimiento en un entorno de producción, generalmente reduciendo la cantidad de logs detallados y ofreciendo respuestas de error más genéricas para seguridad.
+
+- También tenemos que hacer un cambio en el archivo `app.js` 
+![Descripción de la imagen](devops-practice/Imagenes/Foto26.png)
+
+- Por último hacemos este cambio en docker-compose
+![Descripción de la imagen](devops-practice/Imagenes/Foto27.png)
+
+2. **Simulación**
+
+- Se realiza el despliegue primero en un entorno de desarrollo y luego en producción
+  - Primero se construye la imagen del Docker con el comando: `docker-compose build`
+  ![Descripción de la imagen](devops-practice/Imagenes/Foto28.png)
+    - **Para desarrollo:** Usamos el comando `docker-compose up app-dev` el cual inicia el servicio `app-dev` definido en el docker-compose.yml, que está configurado   para desarrollo. Esto incluirá la habilitación de volúmenes para el código fuente y el modo de depuración.
+
+      ![Descripción de la imagen](devops-practice/Imagenes/Foto29.png)
+
+      - ***Resultado Para Desarrollo***:
+      ![Descripción de la imagen](devops-practice/Imagenes/Foto30.png)
+
+    - **Para producción:** Usamos el comando `docker-compose up app-prod` el cual inicia el servicio `app-prod`, que está configurado para un entorno de producción, con las optimizaciones y configuraciones de seguridad correspondientes.
+
+      ![Descripción de la imagen](devops-practice/Imagenes/Foto31.png)
+
+      - ***Resultado Para Desarrollo***:
+      ![Descripción de la imagen](devops-practice/Imagenes/Foto32.png)      
+      
+- Cambiamos de puerto que en este caso es el 5000 
+![Descripción de la imagen](devops-practice/Imagenes/Foto33.png)
+
+  - Desplegamos nuevamente, para esto reiniciamos el servidor para que el nuevo mapeo de puertos tenga efecto
+    
+    ![Descripción de la imagen](devops-practice/Imagenes/Foto34.png)
+
+    - ***Resultado***
+    ![Descripción de la imagen](devops-practice/Imagenes/Foto35.png)
+
+
+3. **Evaluación**
+- Compara la consistencia entre los entornos. ¿Cómo asegura IaC que ambos entornos se mantengan alineados?
+
+- Discute cómo IaC ayuda a escalar aplicaciones en diferentes entornos.
