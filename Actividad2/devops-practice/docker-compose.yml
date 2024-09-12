@@ -4,7 +4,7 @@ services:  # Define los servicios que se van a ejecutar
   app:  # Servicio para la aplicación principal
     build: .  # Construye la imagen Docker desde el Dockerfile en el directorio actual
     ports:
-      - "5000:3000"  # # Cambio del puerto del host a 5000 mientras el contenedor sigue escuchando en el puerto 3000
+      - "3000:3000"  ## Mapea el puerto 3000 del contenedor al puerto 3000 del host
     environment:
       - NODE_ENV=production  # Establece la variable de entorno NODE_ENV a 'production'
 
