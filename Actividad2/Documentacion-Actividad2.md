@@ -387,8 +387,13 @@ services:  # Define los servicios que se van a ejecutar
     - ***Resultado***
     ![Descripción de la imagen](devops-practice/Imagenes/Foto35.png)
 
+**Nota: Se agregó un comodín para facilitar la subida de imagenes: `git add Imagenes/Foto[2][6-9].png Imagenes/Foto3[0-5].png`**
 
 3. **Evaluación**
 - Compara la consistencia entre los entornos. ¿Cómo asegura IaC que ambos entornos se mantengan alineados?
 
+IaC asegura que los entornos de desarrollo y producción se mantengan alineados codificando toda la configuración en archivos (como docker-compose.yml). Esto garantiza que cada entorno se construya de la misma manera, y bueno esto ayuda eliminando las diferencias causadas por configuraciones manuales. Cada cambio se aplica de forma uniforme, asegurando que todos los entornos sean consistentes entre sí.
+
 - Discute cómo IaC ayuda a escalar aplicaciones en diferentes entornos.
+
+La Infraestructura como Código (IaC) facilita la escalabilidad al permitir la automatización de la creación y gestión de entornos. Puedes aumentar o reducir recursos, ajustar configuraciones o desplegar en nuevas ubicaciones simplemente modificando los archivos de configuración. Esta automatización hace que sea fácil escalar la infraestructura de manera eficiente y controlada, adaptándose rápidamente a las necesidades del negocio.
