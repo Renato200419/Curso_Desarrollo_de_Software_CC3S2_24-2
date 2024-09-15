@@ -265,7 +265,22 @@ Practicar la creación de ramas desde commits específicos y comprender cómo Gi
 ## Instrucciones
 1. Crear una nueva rama desde un commit específico:
  - Usa el historial de commits (git log --oneline) para identificar un commit antiguo desde el cual crear una nueva rama:
+ ```bash
+ $ git log --oneline
+ ```
  - Crea una nueva rama bugfix/rollback-feature desde ese commit:
+
+```bash
+$ git branch bugfix/rollback-feature <commit-hash>
+$ git checkout bugfix/rollback-feature
+```
+
+![Descripción de la imagen](Imagenes/Foto33.png)
+
+Luego se escoge un commit antiguo
+
+
+
 
 2. Modificar y confirmar cambios en la nueva rama:
  - Realiza algunas modificaciones en main.py que simulen una corrección de errores:
@@ -350,3 +365,15 @@ Simular un flujo de trabajo colaborativo utilizando ramas y pull requests.
 
 
 
+
+
+
+
+
+
+
+
+
+  ```bash
+
+  ```
