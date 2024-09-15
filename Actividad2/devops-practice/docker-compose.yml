@@ -19,3 +19,8 @@ services:  # Define los servicios que se van a ejecutar
     image: grafana/grafana  # Usa la imagen oficial de Grafana
     ports:
       - "3001:3000"  # Mapea el puerto 3001 del host al puerto 3000 de Grafana dentro del contenedor
+    volumes:
+      - grafana-storage:/var/lib/grafana  # Almacenamiento de datos de Grafana
+
+volumes:
+  grafana-storage:
