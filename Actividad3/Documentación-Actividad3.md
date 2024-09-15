@@ -242,9 +242,111 @@ $ git rebase -i HEAD~3
 ```
 - En el editor que se abre, combina los últimos tres commits en uno solo utilizando la opción squash.
 
+Resultado de ejemplo ya que se hizo commit del archivo .md e imágenes
+![Descripción de la imagen](Imagenes/Foto30.png)
+![Descripción de la imagen](Imagenes/Foto31.png)
+
 
 5. Visualización gráfica del historial:
  - Usa el siguiente comando para ver una representación gráfica del historial de commits:
+```bash
+$ git log --graph --oneline --all
+```
+
+![Descripción de la imagen](Imagenes/Foto32.png)
  - Reflexiona sobre cómo el historial de tu proyecto se visualiza en este formato. ¿Qué información adicional puedes inferir?
+
+
+# Ejercicio 3: Creación y gestión de branches desde commits específicos
+
+## Objetivo
+Practicar la creación de ramas desde commits específicos y comprender cómo Git maneja las referencias históricas.
+
+## Instrucciones
+1. Crear una nueva rama desde un commit específico:
+ - Usa el historial de commits (git log --oneline) para identificar un commit antiguo desde el cual crear una nueva rama:
+ - Crea una nueva rama bugfix/rollback-feature desde ese commit:
+
+2. Modificar y confirmar cambios en la nueva rama:
+ - Realiza algunas modificaciones en main.py que simulen una corrección de errores:
+
+ - Añade y confirma los cambios en la nueva rama:
+
+3. Fusionar los cambios en la rama principal:
+
+
+4. Explorar el historial después de la fusión:
+- Usa git log y git log --graph para ver cómo se ha integrado el commit en el historial:
+
+5. Eliminar la rama bugfix/rollback-feature:
+ - Una vez fusionados los cambios, elimina la rama bugfix/rollback-feature:
+
+# Ejercicio 4: Manipulación y restauración de commits con `git reset` y `git restore`
+
+## Objetivo
+Comprender cómo usar `git reset` y `git restore` para deshacer cambios en el historial y en el área de trabajo.
+
+## Instrucciones
+
+1. Hacer cambios en el archivo main.py:
+ - Edita el archivo main.py para introducir un nuevo cambio:
+
+ - Añade y confirma los cambios:
+
+2. Usar git reset para deshacer el commit:
+ - Deshaz el commit utilizando git reset para volver al estado anterior:
+ - Verifica que el commit ha sido eliminado del historial y que el archivo ha vuelto a su estado anterior.
+3. Usar git restore para deshacer cambios no confirmados:
+ - Realiza un cambio en README.md y no lo confirmes:
+ - Usa git restore para deshacer este cambio no confirmado:
+ - Verifica que el cambio no confirmado ha sido revertido.
+
+
+# Ejercicio 5: Trabajo colaborativo y manejo de Pull Requests
+
+## Objetivo
+Simular un flujo de trabajo colaborativo utilizando ramas y pull requests.
+## Instrucciones
+
+1. Crear un nuevo repositorio remoto:
+ - Usa GitHub o GitLab para crear un nuevo repositorio remoto y clónalo localmente:
+
+2. Crear una nueva rama para desarrollo de una característica:
+ - En tu repositorio local, crea una nueva rama feature/team-feature:
+3. Realizar cambios y enviar la rama al repositorio remoto:
+ - Realiza cambios en los archivos del proyecto y confírmalos:
+- Envía la rama al repositorio remoto:
+
+4. Abrir un Pull Request:
+ - Abre un Pull Request (PR) en la plataforma remota (GitHub/GitLab) para fusionar feature/team-feature con la rama main.
+ - Añade una descripción detallada del PR, explicando los cambios realizados y su propósito.
+5. Revisar y Fusionar el Pull Request:
+ - Simula la revisión de código, comenta en el PR y realiza cualquier cambio necesario basado en la retroalimentación.
+ - Una vez aprobado, fusiona el PR en la rama main.
+6. Eliminar la rama remota y local:
+ - Después de la fusión, elimina la rama tanto local como remotamente:
+
+## Ejercicio 6: Cherry-Picking y Git Stash
+
+**Objetivo:** Aprender a aplicar commits específicos a otra rama utilizando `git cherry-pick` y a guardar temporalmente cambios no confirmados utilizando `git stash`.
+
+## Instrucciones:
+
+1. Hacer cambios en main.py y confirmarlos:
+ - Realiza y confirma varios cambios en main.py en la rama main:
+2. Crear una nueva rama y aplicar el commit específico:
+ - Crea una nueva rama feature/cherry-pick y aplícale el commit específico:
+3. Guardar temporalmente cambios no confirmados:
+ - Realiza algunos cambios en main.py pero no los confirmes:
+ - Guarda temporalmente estos cambios utilizando git stash:
+4. Aplicar los cambios guardados:
+ - Realiza otros cambios y confírmalos si es necesario.
+ - Luego, recupera los cambios guardados anteriormente:
+5. Revisar el historial y confirmar la correcta aplicación de los cambios:
+ - Usa git log para revisar el historial de commits y verificar que todos los cambios se han aplicado correctamente.
+
+
+
+
 
 
