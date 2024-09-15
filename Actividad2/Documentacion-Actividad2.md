@@ -154,7 +154,7 @@ En resumen, estas herramientas y prácticas refuerzan nuestro entorno DevOps al 
 
 # Ejercicios Adicionales - Parte Práctica
 
-# **Ejercicio 1**
+# **Ejercicio 1: Integración continua y devSecOps**
 
 ## Implementación
 
@@ -292,7 +292,7 @@ jobs:
 - **Beneficios a Largo Plazo:** Adoptar un enfoque de DevSecOps puede resultar en un ahorro significativo de costos a largo plazo, reduciendo la necesidad de intervenciones costosas en etapas posteriores del desarrollo y durante la fase de producción, y manteniendo una postura de seguridad robusta en todo momento.
 
 
-# **Ejercicio 2**
+# **Ejercicio 2: Infraestructura como código y gestión de configuración**
 
 1. **Implementación**
 
@@ -397,3 +397,150 @@ IaC asegura que los entornos de desarrollo y producción se mantengan alineados 
 - Discute cómo IaC ayuda a escalar aplicaciones en diferentes entornos.
 
 La Infraestructura como Código (IaC) facilita la escalabilidad al permitir la automatización de la creación y gestión de entornos. Puedes aumentar o reducir recursos, ajustar configuraciones o desplegar en nuevas ubicaciones simplemente modificando los archivos de configuración. Esta automatización hace que sea fácil escalar la infraestructura de manera eficiente y controlada, adaptándose rápidamente a las necesidades del negocio.
+
+
+# **Ejercicio 3**
+
+1. **Implementación**
+- Usamos nuestra carpeta de `devops-practice` y configuramos nuestro archivo `docker-compose.yml`, solo agregamos esta línea:
+
+```yml en la parte de grafana
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+volumes:
+  grafana-storage:
+
+```
+![Descripción de la imagen](devops-practice/Imagenes/Foto36.png)
+
+- Modificamos app.js para añadir registros detallados y recopilar métricas. Para eso usamos las siguientes herramientas:
+  - Uso de `winston`:Es una biblioteca popular para logging en aplicaciones Node.js. Podemos configurar diferentes niveles de logging (como error, info, debug) y dirigir estos logs a diferentes destinos (consola, archivos, sistemas externos).
+
+  - Uso de `prom-client`: Esta librería facilita la exposición de métricas que pueden ser recolectadas por Prometheus. Generalmente, añadirás un endpoint /metrics a tu aplicación para que Prometheus pueda acceder y recopilar estas métricas.
+
+```Se añade el código de app.js modificado
+const express = require('express');  // Importa el módulo Express para crear la aplicación web
+const winston = require('winston');  // Importa Winston para el logging
+const client = require('prom-client');  // Importa prom-client para la recolección de métricas
+
+// Crear una instancia de la aplicación Express
+const app = express();
+
+// Configurar el logger de Winston
+const logger = winston.createLogger({
+    level: 'info',  // Nivel de log, puede ser 'info', 'debug', 'warn', etc.
+    format: winston.format.combine(
+        winston.format.timestamp(),  // Añade un timestamp a cada log
+        winston.format.json()  // Formato de log en JSON
+    ),
+    transports: [
+        new winston.transports.Console({
+            format: winston.format.simple()  // Formato simple para la salida en consola
+        }),
+        new winston.transports.File({ filename: 'server.log' })  // Registra los logs en un archivo
+    ]
+});
+
+// Recolecta métricas predeterminadas de Node.js
+const collectDefaultMetrics = client.collectDefaultMetrics;
+collectDefaultMetrics({ timeout: 5000 });  // Recolecta métricas cada 5 segundos
+
+// Define una métrica personalizada: duración de las solicitudes HTTP
+const httpRequestDurationMicroseconds = new client.Histogram({
+    name: 'http_request_duration_ms',  // Nombre de la métrica
+    help: 'Duration of HTTP requests in ms',  // Descripción de la métrica
+    labelNames: ['method', 'path', 'status'],  // Etiquetas para diferenciar las métricas
+    buckets: [0.1, 5, 15, 50, 100, 500]  // Rango de duraciones en milisegundos
+});
+
+// Middleware para logear solicitudes y medir duración
+app.use((req, res, next) => {
+    const start = process.hrtime();  // Registra el tiempo de inicio
+
+    res.on('finish', () => {
+        const durationInMilliseconds = process.hrtime(start)[1] / 1e6;  // Calcula la duración de la solicitud
+        httpRequestDurationMicroseconds.labels(req.method, req.originalUrl, res.statusCode).observe(durationInMilliseconds);  // Observa la duración en la métrica
+        logger.info(`Handled ${req.method} request to ${req.originalUrl} with status code ${res.statusCode} in ${durationInMilliseconds} ms`);  // Log de la solicitud
+    });
+
+    next();  // Pasa el control al siguiente middleware
+});
+
+// Ruta raíz que responde con 'Hello, World!'
+app.get('/', (req, res) => {
+    res.send('Hello, World!');  // Respuesta simple al acceso a la raíz
+});
+
+// Ruta para exponer las métricas a Prometheus
+app.get('/metrics', async (req, res) => {
+    res.set('Content-Type', client.register.contentType);  // Establece el tipo de contenido como el formato de métricas de Prometheus
+    res.end(await client.register.metrics());  // Envía las métricas a Prometheus
+});
+
+// Verifica si el módulo actual es el módulo principal y ejecuta el servidor
+if (require.main === module) {
+    const port = process.env.PORT || 3000;  // Obtiene el puerto desde la variable de entorno o usa el puerto 3000 por defecto
+    const server = app.listen(port, () => logger.info(`Server running on port ${port}`));  // Inicia el servidor y loggea el puerto
+    module.exports = server;  // Exporta el servidor para su uso en otros módulos
+} else {
+    module.exports = app;  // Exporta la aplicación para su uso en otros módulos
+}
+
+```  
+
+2. **Experimentación**
+- Para poder usar las depencias las tenemos que instalar con el siguiente comando: `npm install winston prom-client`
+![Descripción de la imagen](devops-practice/Imagenes/Foto37.png)
+- Usamos `setTimeout` para introducir un retardo en la respuesta de la ruta seleccionada
+
+```app.js complemento
+// Ruta que simula un tiempo de respuesta lento
+app.get('/slow', (req, res) => {
+    // Log inicial sobre la recepción de la solicitud
+    logger.info('Received a slow request');
+
+    // Simula un retardo de 3 segundos antes de responder
+    setTimeout(() => {
+        res.send('Response with intentional delay');
+        // Log que la solicitud ha sido procesada después del retardo
+        logger.info('Processed the slow request after a 3-second delay');
+    }, 3000); // Retraso de 3000 milisegundos (3 segundos)
+});
+
+```
+- Luego escribimos los siguientes comandos: `docker-compose build` y luego `docker-compose up -d`.
+- En grafana ingresamos `admin` tanto en username como en password
+![Descripción de la imagen](devops-practice/Imagenes/Foto38.png)
+
+- Para eso en **Connections**, damos clic en Data sources y lo vinculamos con Prometheus.
+![Descripción de la imagen](devops-practice/Imagenes/Foto39.png)
+- En Dashboard igual por defecto agregamos Prometheus
+![Descripción de la imagen](devops-practice/Imagenes/Foto40.png)
+
+![Descripción de la imagen](devops-practice/Imagenes/Foto41.png)
+
+- En Alerta seguimos estos pasos
+![Descripción de la imagen](devops-practice/Imagenes/Foto42.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto43.png)
+![Descripción de la imagen](devops-practice/Imagenes/Foto44.png)
+
+- Resultado
+
+![Descripción de la imagen](devops-practice/Imagenes/Foto45.png)
+- Resultado-modelo
+![Descripción de la imagen](devops-practice/Imagenes/Foto46.png)
+
+3. **Evaluación:  Observabilidad y monitoreo avanzado**
+- Discute cómo la observabilidad permite identificar problemas que no serían evidentes con un monitoreo tradicional.
+A lo largo de esta actividad, la observabilidad se diferencia del monitoreo tradicional en que no solo se enfoca en recolectar datos y métricas predefinidas, sino que también permite inspeccionar y entender el estado de los sistemas desde la data generada por ellos mismos. Es importante ya que permite identificar problemas que no son evidentes a simple vista o que no se habrían considerado en la configuración inicial del sistema de monitoreo.
+
+- Reflexiona sobre la importancia de las métricas, logs y trazas en la gestión de sistemas modernos
+
+Estos tres términos son bien importantes y podemos enumerarlos:
+a. Métricas: Indican el rendimiento y salud del sistema en tiempo real, ayudando a monitorizar y optimizar las operaciones.
+b. Logs: Ofrecen un registro detallado de eventos, crucial para diagnosticar problemas y entender el comportamiento del sistema.
+c. Trazas: Son importantes en entornos distribuidos para rastrear procesos complejos a través de varios servicios y localizar fallos o cuellos de botella.
+
+
+
