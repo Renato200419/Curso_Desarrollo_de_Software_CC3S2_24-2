@@ -549,3 +549,6 @@ $ git stash pop
 $ git log
 ```
 ![Descripción de la imagen](Imagenes/Foto60.png)
+
+
+# Ya que se realizó con éxito cada paso, hemos terminado la Actividad !!!
