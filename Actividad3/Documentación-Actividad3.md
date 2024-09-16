@@ -277,24 +277,77 @@ $ git checkout bugfix/rollback-feature
 
 ![Descripción de la imagen](Imagenes/Foto33.png)
 
-Luego se escoge un commit antiguo
+Luego se escoge un commit antiguo, por ejemplo:
 
-
-
+ ```bash
+$ git branch bugfix/rollback-feature 950b35e
+$ git checkout bugfix/rollback-feature
+ ```
 
 2. Modificar y confirmar cambios en la nueva rama:
  - Realiza algunas modificaciones en main.py que simulen una corrección de errores:
+ ```python
+ def greet():
+   print('Fixed bug in feature')
 
+ ```
  - Añade y confirma los cambios en la nueva rama:
+![Descripción de la imagen](Imagenes/Foto34.png)
+
+La imagen a continuación es cuando se escribe el comando: `nano main.py`
+![Descripción de la imagen](Imagenes/Foto35.png)
 
 3. Fusionar los cambios en la rama principal:
+- Cambia de nuevo a la rama main y fusiona la rama bugfix/rollback-feature:
 
+```bash
+ $ git checkout main
+ $ git merge bugfix/rollback-feature
+```
+Al tener un problema con el merge:
+![Descripción de la imagen](Imagenes/Foto36.png)
+
+Para resolver este conflicto y mantener ambos cambios, se modifica el archivo main.py para que incluya ambos elementos.
+```python
+print('Hello World - updated in main')
+
+def greet():
+ print('Fixed bug in feature')
+ 
+greet()
+```
+
+
+En el Terminal escribimos lo siguiente:
+
+```bash
+ $ git main.py
+ $ git commit
+```
+
+Y se abrira un editor de texto, guardamos y cerramos.
+
+![Descripción de la imagen](Imagenes/Foto37.png)
 
 4. Explorar el historial después de la fusión:
 - Usa git log y git log --graph para ver cómo se ha integrado el commit en el historial:
 
+```bash
+$ git log --graph --oneline
+```
+
+![Descripción de la imagen](Imagenes/Foto38.png)
+
+
 5. Eliminar la rama bugfix/rollback-feature:
  - Una vez fusionados los cambios, elimina la rama bugfix/rollback-feature:
+
+```bash
+$ git branch -d bugfix/rollback-feature
+```
+
+![Descripción de la imagen](Imagenes/Foto39.png)
+
 
 # Ejercicio 4: Manipulación y restauración de commits con `git reset` y `git restore`
 
@@ -304,17 +357,61 @@ Comprender cómo usar `git reset` y `git restore` para deshacer cambios en el hi
 ## Instrucciones
 
 1. Hacer cambios en el archivo main.py:
- - Edita el archivo main.py para introducir un nuevo cambio:
+ - Edita el archivo main.py para introducir un nuevo cambio. Se añade esa línea de código:
 
+```python
+print('This change will be reset')
+```
+Resultado:
+
+```python
+print('Hello World - updated in main')
+
+def greet():
+ print('Fixed bug in feature')
+ 
+greet()
+
+print('This change will be reset')
+```
  - Añade y confirma los cambios:
+
+![Descripción de la imagen](Imagenes/Foto40.png)
+
+![Descripción de la imagen](Imagenes/Foto41.png)
 
 2. Usar git reset para deshacer el commit:
  - Deshaz el commit utilizando git reset para volver al estado anterior:
+
+```bash
+$ git reset --hard HEAD~1
+```
  - Verifica que el commit ha sido eliminado del historial y que el archivo ha vuelto a su estado anterior.
+
+   - Para verificar usamos el siguiente comando: `git log --graph --oneline`
+   ![Descripción de la imagen](Imagenes/Foto42.png)
+
+   - Verificamos el archivo main.py
+   ![Descripción de la imagen](Imagenes/Foto43.png)
+
 3. Usar git restore para deshacer cambios no confirmados:
  - Realiza un cambio en README.md y no lo confirmes:
+```bash
+$ echo "Another line in README" >> README.md
+$ git status
+
+```
  - Usa git restore para deshacer este cambio no confirmado:
+```bash
+$ git restore README.md
+```
  - Verifica que el cambio no confirmado ha sido revertido.
+```bash
+$ git status
+```
+**Resultado**
+
+![Descripción de la imagen](Imagenes/Foto44.png)
 
 
 # Ejercicio 5: Trabajo colaborativo y manejo de Pull Requests
@@ -326,20 +423,63 @@ Simular un flujo de trabajo colaborativo utilizando ramas y pull requests.
 1. Crear un nuevo repositorio remoto:
  - Usa GitHub o GitLab para crear un nuevo repositorio remoto y clónalo localmente:
 
+```bash
+$ git clone https://github.com/Renato200419/Curso_Desarrollo_de_Software_CC3S2_24-1.git
+```
+
 2. Crear una nueva rama para desarrollo de una característica:
  - En tu repositorio local, crea una nueva rama feature/team-feature:
+ ```bash
+ $ git branch feature/team-feature
+ $ git checkout feature/team-feature
+```
+
 3. Realizar cambios y enviar la rama al repositorio remoto:
- - Realiza cambios en los archivos del proyecto y confírmalos:
+- Realiza cambios en los archivos del proyecto y confírmalos:
+ ![Descripción de la imagen](Imagenes/Foto45.png)
+
+ Para evitar ese error se usa lo siguiente:
+ ```bash
+ $ echo "print('Collaboration is key\!')" > collaboration.py
+ $ git add .
+ $ git commit -m "Add collaboration script"
+
+ ```
+![Descripción de la imagen](Imagenes/Foto46.png)
 - Envía la rama al repositorio remoto:
+
+ ```bash
+$ git push origin feature/team-feature
+ ```
+
+![Descripción de la imagen](Imagenes/Foto47.png)
+
+Lo que se hizo fue eliminar la referencia al repositorio interno ya que agregamos un repositorio completo, se pudo haber usado submódulos pero aún no tocamos ese tema por tanto se resuelve el problema del repositorio anidado.
 
 4. Abrir un Pull Request:
  - Abre un Pull Request (PR) en la plataforma remota (GitHub/GitLab) para fusionar feature/team-feature con la rama main.
+![Descripción de la imagen](Imagenes/Foto48.png)
  - Añade una descripción detallada del PR, explicando los cambios realizados y su propósito.
+![Descripción de la imagen](Imagenes/Foto49.png)
+![Descripción de la imagen](Imagenes/Foto50.png)
+
 5. Revisar y Fusionar el Pull Request:
  - Simula la revisión de código, comenta en el PR y realiza cualquier cambio necesario basado en la retroalimentación.
  - Una vez aprobado, fusiona el PR en la rama main.
+![Descripción de la imagen](Imagenes/Foto51.png)
 6. Eliminar la rama remota y local:
+
  - Después de la fusión, elimina la rama tanto local como remotamente:
+![Descripción de la imagen](Imagenes/Foto52.png)
+
+```bash
+$ git branch -d feature/team-feature
+$ git push origin --delete feature/team-feature
+```
+
+![Descripción de la imagen](Imagenes/Foto53.png)
+
+Sale esa línea roja ya que se eliminó la rama a través de la interfaz web de GitHub después de fusionar el Pull Request.
 
 ## Ejercicio 6: Cherry-Picking y Git Stash
 
@@ -349,31 +489,63 @@ Simular un flujo de trabajo colaborativo utilizando ramas y pull requests.
 
 1. Hacer cambios en main.py y confirmarlos:
  - Realiza y confirma varios cambios en main.py en la rama main:
+
+```bash
+$ echo "print('Cherry pick this\!')" >> main.py
+$ git add main.py
+$ git commit -m "Add cherry-pick example"  
+```
+![Descripción de la imagen](Imagenes/Foto54.png)
+
 2. Crear una nueva rama y aplicar el commit específico:
  - Crea una nueva rama feature/cherry-pick y aplícale el commit específico:
+
+```bash
+$ git branch feature/cherry-pick
+$ git checkout feature/cherry-pick
+```
+![Descripción de la imagen](Imagenes/Foto55.png)
+
+Cambiamos de rama a `main` y se escoge el hash del commit que sería el `e8c247b`
+![Descripción de la imagen](Imagenes/Foto56.png)
+
+```bash
+$ git cherry-pick <commit-hash>
+```
+![Descripción de la imagen](Imagenes/Foto57.png)
+
+Se hizo una verificación de los cambios en el commit específico
+
+![Descripción de la imagen](Imagenes/Foto58.png)
+
 3. Guardar temporalmente cambios no confirmados:
  - Realiza algunos cambios en main.py pero no los confirmes:
+```bash
+$ echo "This change is stashed" >> main.py
+$ git status
+```
  - Guarda temporalmente estos cambios utilizando git stash:
+```bash
+$ git stash
+```
+![Descripción de la imagen](Imagenes/Foto59.png)
+
 4. Aplicar los cambios guardados:
  - Realiza otros cambios y confírmalos si es necesario.
+ Se agrega lo siguiente:
+```bash
+$ echo "New changes to main.py" >> main.py
+$ git add main.py
+$ git commit -m "Make additional changes to main.py"
+```
  - Luego, recupera los cambios guardados anteriormente:
+
+```bash
+$ git stash pop
+```
 5. Revisar el historial y confirmar la correcta aplicación de los cambios:
  - Usa git log para revisar el historial de commits y verificar que todos los cambios se han aplicado correctamente.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  ```bash
-
-  ```
+```bash
+$ git log
+```
+![Descripción de la imagen](Imagenes/Foto60.png)
