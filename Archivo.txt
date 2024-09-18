@@ -1,1 +1,6 @@
 Primer mensaje en este archivo.txt
+Commit en rama 1
+Primer commit en rama 2
+1er commit en rama feature
+2do commit en rama feature
+3er commit en rama feature
