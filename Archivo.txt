@@ -1,2 +1,3 @@
 Primer mensaje en este archivo.txt
 Commit en rama 1
+Primer commit en rama 2
