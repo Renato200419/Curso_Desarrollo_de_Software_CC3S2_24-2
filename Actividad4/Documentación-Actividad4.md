@@ -1,7 +1,22 @@
 # Actividad 4
 El procedimiento de esta Actividad se realizó en clase el día 09/09/24 por tal razón no se documentó.
-# Objetivo
+# Objetivo: Entender y comparar las estrategias de fusión Fast-Forward, No Fast-Forward y Squash en Git, viendo cómo impactan en el historial. Esto te ayuda a elegir la mejor estrategia para mantener un historial claro y manejable en proyectos colaborativos.
 
+## Uso de subtrees: 
+Usar los **subtrees** `git subtree` son una forma de incluir un repositorio externo dentro de tu propio repositorio. Esto te permite trabajar con otros proyectos o bibliotecas de manera más sencilla.
+
+Ejemplo:
+1. Nos posicionamos en el directorio principal
+2. Agregar el Repositorio como remote
+3. Integrar el Repositorio Usando git subtree
+4. Eliminar el remote [el cual ya no se usará más y se mantiene solo los remotes necesarios ayuda a evitar confusiones ]
+
+```bash
+\\wsl.localhost\Ubuntu\home\renato\Actividades
+git remote add -f ejercicio-fusion [URL del repositorio ejercicio fusion]
+git subtree add --prefix=Actividades/Actividad6/ejercicio-fusion ejercicio-fusion main
+git remote remove ejercicio-fusion
+``` 
 
 # Ejercicio 1: Clona un repositorio Git con múltiples ramas.
 
