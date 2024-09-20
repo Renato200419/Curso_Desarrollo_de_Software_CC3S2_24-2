@@ -14,7 +14,7 @@ Ejemplo:
 ```bash
 \\wsl.localhost\Ubuntu\home\renato\Actividades
 git remote add -f ejercicio-fusion [URL del repositorio ejercicio fusion]
-git subtree add --prefix=Actividades/Actividad6/ejercicio-fusion ejercicio-fusion main
+git subtree add --prefix=Actividad4/ejercicio-fusion ejercicio-fusion main
 git remote remove ejercicio-fusion
 ``` 
 
