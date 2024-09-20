@@ -54,13 +54,21 @@ El rebase reescribe el historial, lo que puede causar problemas si otros colabor
 1. Diferencias entre git merge y git rebase
 **Pregunta**: Explica la diferencia entre git merge y git rebase y describe en qué escenarios sería más adecuado utilizar cada uno en un equipo de desarrollo ágil que sigue las prácticas de Scrum.
 
+A continuación se explican las diferencias entre git merge y git rebase y escenarios en donde se usa más adecuado el Scrum:
+   - `git merge`: Une ramas y crea un "commit de merge". Es perfecto para mantener la historia colectiva del equipo.
+   - `git rebase`: Reescribe la historia para obtener un historial lineal. Ideal para limpiar antes de integrar cambios.
+   - **En Scrum**: Se prefiere usar `merge` para la colaboración en equipo y `rebase` para ordenar el historial antes de cerrar el sprint.
+
 2. Relación entre git rebase y DevOps
 **Pregunta**: ¿Cómo crees que el uso de git rebase ayuda a mejorar las prácticas de DevOps, especialmente en la implementación continua (CI/CD)? Discute los beneficios de mantener un historial lineal en el contexto de una entrega continua de código y la automatización de pipelines.
+
+El uso de `git rebase` en prácticas de DevOps, especialmente en CI/CD, mejora la claridad y la eficiencia del desarrollo. Al mantener un historial lineal, `git rebase` facilita la depuración y la revisión de código, simplifica la resolución de conflictos al re-aplicar cambios de manera incremental, y ayuda a automatizar y estabilizar los pipelines de CI/CD. Esto asegura que las integraciones sean predecibles y eficientes, esenciales para la entrega continua donde el código debe estar listo para producción en cualquier momento.
+
 
 3. Impacto del git cherry-pick en un equipo Scrum
 **Pregunta**: Un equipo Scrum ha finalizado un sprint, pero durante la integración final a la rama principal (main) descubren que solo algunos commits específicos de la rama de una funcionalidad deben aplicarse a producción. ¿Cómo podría ayudar git cherry-pick en este caso? Explica los beneficios y posibles complicaciones.
 
-
+`git cherry-pick` permite aplicar commits específicos a producción, perfecto cuando solo algunas funcionalidades están listas. Esto evita mezclar cambios incompletos, aunque puede generar conflictos si no se maneja con cuidado.
 ---
 
 # Ejercicios prácticos
