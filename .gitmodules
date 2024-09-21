@@ -1,3 +1,6 @@
 [submodule "Actividad5/scrum-project"]
 	path = Actividad5/scrum-project
 	url = https://github.com/Renato200419/scrum-project
+[submodule "Actividad6/Pregunta-8"]
+	path = Actividad6/Pregunta-8
+	url = https://github.com/Renato200419/proyecto-.gitignore-Pregunta8
