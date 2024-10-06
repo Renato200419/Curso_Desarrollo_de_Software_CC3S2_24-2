@@ -7,3 +7,6 @@
 [submodule "Actividad9/Word-Guessing-Game"]
 	path = Actividad9/Word-Guessing-Game
 	url = https://github.com/Renato200419/Word-Guessing-Game.git
+[submodule "Actividad 7 y 8/Actividad-7-y-8-Grupal"]
+	path = Actividad 7 y 8/Actividad-7-y-8-Grupal
+	url = https://github.com/Renato200419/Actividad-7-y-8-Grupal.git
