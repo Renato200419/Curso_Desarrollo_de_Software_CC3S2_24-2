@@ -4,3 +4,6 @@
 [submodule "Actividad6/Pregunta-8"]
 	path = Actividad6/Pregunta-8
 	url = https://github.com/Renato200419/proyecto-.gitignore-Pregunta8
+[submodule "Actividad9/Word-Guessing-Game"]
+	path = Actividad9/Word-Guessing-Game
+	url = https://github.com/Renato200419/Word-Guessing-Game.git
