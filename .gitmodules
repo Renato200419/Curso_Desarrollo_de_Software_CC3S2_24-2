@@ -10,3 +10,6 @@
 [submodule "Actividad7y8/Actividad-7-y-8-Grupal"]
 	path = Actividad7y8/Actividad-7-y-8-Grupal
 	url = https://github.com/Renato200419/Actividad-7-y-8-Grupal.git
+[submodule "Tarea 1/Tarea1-CC3S2"]
+	path = Tarea 1/Tarea1-CC3S2
+	url = https://github.com/Renato200419/Tarea1-CC3S2.git
