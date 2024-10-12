@@ -7,12 +7,12 @@
 #    branches:
 #      - main
 #    paths:
-#      - 'Actividad 1/**'
+#      - 'Actividad1/**'
 #  pull_request:
 #    branches:
 #      - main
 #    paths:
-#      - 'Actividad 1/**
+#      - 'Actividad1/**
 
 #jobs:
 #  build:
